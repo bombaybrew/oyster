@@ -1,14 +1,20 @@
 <template>
-  <HelloWorld msg="Oyster"/>
+  <div>
+    <Navbar></Navbar>
+    <router-view></router-view>
+    <Footer></Footer>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Navbar from "@/ui/components/Navbar";
+import Footer from "@/ui/components/Footer.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Navbar,
+    Footer,
+  },
+};
 </script>
