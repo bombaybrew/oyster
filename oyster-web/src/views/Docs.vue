@@ -2,9 +2,9 @@
   <section class="section">
     <div class="content">
       <div class="container">
-        <h1>Oyster Home</h1>
+        <h1>Oyster Docs</h1>
         <hr />
-        <h3>NLP Toolkit - v0.0.1</h3>
+        <h3>Get started with a simple entity extraction</h3>
       </div>
     </div>
   </section>
@@ -12,6 +12,6 @@
 
 <script>
 export default {
-  name: "Home",
+  name: "Docs",
 };
 </script>

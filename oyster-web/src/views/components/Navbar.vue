@@ -2,7 +2,7 @@
   <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item">
-        <h3>Oyster</h3>
+        <router-link to="/">Oyster</router-link>
       </a>
 
       <a
@@ -23,12 +23,12 @@
 
     <div id="menu" class="navbar-menu" v-bind:class="{ 'is-active': showNav }">
       <div class="navbar-start">
-        <a class="navbar-item">
-          Home
+        <a v-on:click="showNav = !showNav" class="navbar-item">
+          <router-link to="/docs">Docs</router-link>
         </a>
 
-        <a class="navbar-item">
-          Documentation
+        <a @click="navigateTo('/about')" class="navbar-item">
+          About
         </a>
       </div>
 
@@ -53,5 +53,11 @@ export default {
   data: () => ({
     showNav: false,
   }),
+  methods: {
+    navigateTo: function(path) {
+      this.$data.showNav = !this.$data.showNav;
+      this.$router.push(path);
+    },
+  },
 };
 </script>

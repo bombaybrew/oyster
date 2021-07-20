@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import Navbar from "@/ui/components/Navbar";
-import Footer from "@/ui/components/Footer.vue";
+import Navbar from "@/views/components/Navbar";
+import Footer from "@/views/components/Footer.vue";
 
 export default {
   name: "App",
@@ -18,3 +18,7 @@ export default {
   },
 };
 </script>
+
+<style>
+@import "./assets/oyster.css";
+</style>
