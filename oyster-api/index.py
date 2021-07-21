@@ -1,5 +1,7 @@
 from fastapi import FastAPI
-import api.home_controller as homeController
+import api.homeController as homeController
+import api.dataController as dataController
+from pydantic import BaseModel
 
 VERSION = 'v0.0.1'
 
@@ -7,6 +9,13 @@ VERSION = 'v0.0.1'
 # --------------------
 
 app = FastAPI()
+
+
+# Model
+# --------------------
+
+class DatasetRow(BaseModel):
+    data: str
 
 # Routes
 # --------------------
@@ -18,3 +27,12 @@ async def root():
 @app.get("/home")
 async def home():
     return await homeController.helloHome()
+
+@app.get("/dataset")
+async def data():
+    return await dataController.getAll()
+
+@app.post("/dataset")
+async def data(row: DatasetRow):
+    print(row)
+    return await dataController.insert(row.dict())
