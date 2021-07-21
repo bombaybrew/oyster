@@ -9,7 +9,7 @@
       </p>
     </div>
     <footer class="card-footer">
-      <a href="#" class="card-footer-item">{{ action }}</a>
+      <a class="card-footer-item">{{ action }}</a>
     </footer>
   </div>
 </template>
@@ -24,7 +24,7 @@ export default {
 <style scoped>
 
 .card-content {
-   height: 12rem;
+   height: 14rem;
 }
 
 </style>

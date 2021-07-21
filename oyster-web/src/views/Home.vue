@@ -26,7 +26,7 @@
             class="content"
             v-bind:class="{ 'is-active': activeTab == 'library_tab' }"
           >
-            Library
+            <library />
           </div>
           <div
             class="content"
@@ -41,9 +41,10 @@
 </template>
 
 <script>
-import Dash from '@/views/Dash.vue';
+import Dash from "@/views/Dash.vue";
+import Library from "@/views/Library.vue";
 export default {
-  components: { Dash },
+  components: { Dash, Library },
   name: "Home",
   data: () => ({
     activeTab: "home_tab",
@@ -52,8 +53,7 @@ export default {
 </script>
 
 <style scoped>
-
 .tabs ul {
-    margin-left: 0em;
+  margin-left: 0em;
 }
 </style>

@@ -10,7 +10,7 @@
         />
       </div>
     </div>
-    <h3>Existing Models</h3>
+    <h4>Existing DataSets</h4>
     <hr />
   </div>
 </template>
@@ -19,11 +19,11 @@
 import Card from "@/views/components/Card.vue";
 export default {
   components: { Card },
-  name: "Dash",
+  name: "Library",
   methods: {
     navigateTo: function(path) {
       console.log(path);
-      this.$router.push(path);
+      this.$router.push('/create');
     },
   },
 };
