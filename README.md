@@ -2,7 +2,7 @@
 oyster - nlp toolkit
 
 
-## initial setup
+## Initial setup
 ```
 npm install -g @vue/cli
 Vue --version
