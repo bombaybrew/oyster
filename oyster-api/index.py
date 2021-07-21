@@ -14,6 +14,9 @@ app = FastAPI()
 # Model
 # --------------------
 
+class Dataset(BaseModel):
+    name: str
+
 class DatasetRow(BaseModel):
     data: str
 
@@ -29,10 +32,17 @@ async def home():
     return await homeController.helloHome()
 
 @app.get("/dataset")
-async def data():
-    return await dataController.getAll()
+async def dataset():
+    return await dataController.getAllDataset()
 
 @app.post("/dataset")
-async def data(row: DatasetRow):
-    print(row)
-    return await dataController.insert(row.dict())
+async def dataset(dataset: Dataset):
+    return await dataController.createDataset(dataset.dict().get("name"))
+
+@app.get("/dataset/{datasetID}")
+async def datasetRows(datasetID: str):
+    return await dataController.getDatasetRows(datasetID)
+
+@app.post("/dataset/{datasetID}")
+async def datasetRow(datasetID: str, datasetRow: DatasetRow):
+    return await dataController.createDatasetRow(datasetID, datasetRow.dict())
