@@ -4,20 +4,16 @@ db = TinyDB('data/tinydb.json')
 TABLE_DATASET = "dataset"
 TABLE_DATESET_ITEMS = "dataset_items"
 
-
 async def insert(tableName, row):
     table = db.table(tableName)
     return table.insert(row)
-
 
 async def getAll(tableName):
     table = db.table(tableName)
     return table.all()
 
-
 async def getTable(tableName):
     return db.table(tableName)
-
 
 async def getDatasetItems(datasetId):
     print(datasetId)

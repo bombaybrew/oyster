@@ -1,7 +1,10 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+
 import api.homeController as homeController
 import api.dataController as dataController
-from pydantic import BaseModel
+
 
 VERSION = 'v0.0.1'
 
@@ -9,6 +12,17 @@ VERSION = 'v0.0.1'
 # --------------------
 
 app = FastAPI()
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 # Model

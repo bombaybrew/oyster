@@ -2,6 +2,8 @@
   <section class="section">
     <div class="content">
       <div class="container">
+        <h3>Select Model Type</h3>
+        <hr />
         <div class="columns is-mobile">
           <div class="column is-half-mobile is-2-desktop">
             <card
