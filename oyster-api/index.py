@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 import api.homeController as homeController
 import api.dataController as dataController
+import flairNLP.flairController as flairController
 from pydantic import BaseModel
 
 VERSION = 'v0.0.1'
@@ -46,3 +47,11 @@ async def datasetRows(datasetID: str):
 @app.post("/dataset/{datasetID}")
 async def datasetRow(datasetID: str, datasetRow: DatasetRow):
     return await dataController.createDatasetRow(datasetID, datasetRow.dict())
+
+@app.get("/trainmodel")
+async def trainModel():
+    return await flairController.train()
+
+@app.get("/predict/")
+async def trainModel(text: str):
+    return await flairController.predict(text)
