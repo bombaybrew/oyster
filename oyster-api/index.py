@@ -34,6 +34,12 @@ class Dataset(BaseModel):
 class DatasetRow(BaseModel):
     data: str
 
+class Model(BaseModel):
+    name: str
+    type: str
+    rawDatasetId: str
+    processedDatasetId: str
+
 # Routes
 # --------------------
 
@@ -53,10 +59,41 @@ async def dataset():
 async def dataset(dataset: Dataset):
     return await dataController.createDataset(dataset.dict().get("name"))
 
+@app.delete("/dataset/{datasetID}")
+async def  deleteDatasets(datasetID: str):
+    if(datasetID == "all"):
+        return await dataController.resetDataSets()
+    return
+    
+
 @app.get("/dataset/{datasetID}")
 async def datasetRows(datasetID: str):
     return await dataController.getDatasetRows(datasetID)
 
+@app.get("/dataset/{datasetID}/{index}")
+async def datasetRows(datasetID: str, index: int):
+    return await dataController.getDatasetRowsBatch(datasetID, index)
+
 @app.post("/dataset/{datasetID}")
 async def datasetRow(datasetID: str, datasetRow: DatasetRow):
     return await dataController.createDatasetRow(datasetID, datasetRow.dict())
+
+@app.get("/model")
+async def getModels():
+    return await dataController.getAllModels()
+
+@app.post("/model") 
+async def createModel(model: Model):
+    name = model.dict().get("name")
+    type = model.dict().get("type")
+    rawDatasetId = model.dict().get("rawDatasetId")
+    return await dataController.createModel(name, type, rawDatasetId)
+
+
+@app.get("/trainmodel")
+async def trainModel():
+    return await flairController.train()
+
+@app.get("/predict/")
+async def trainModel(text: str):
+    return await flairController.predict(text)
