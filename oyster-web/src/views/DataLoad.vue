@@ -10,6 +10,7 @@
               title="Import CSV"
               subtitle="Import local CSV file"
               action="+ Import Data"
+              @click="uploadFile"
             />
           </div>
         </div>
@@ -19,11 +20,7 @@
             v-for="item of datasets"
             v-bind:key="item"
           >
-            <card
-              v-bind:title="item.name"
-              subtitle="test"
-              action="+ Import Data"
-            />
+            <card v-bind:title="item.name" subtitle="" action="Use Dataset" />
           </div>
         </div>
       </div>

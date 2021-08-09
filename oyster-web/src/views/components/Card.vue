@@ -24,7 +24,7 @@ export default {
 <style scoped>
 
 .card-content {
-   height: 14rem;
+   height: 12rem;
 }
 
 </style>

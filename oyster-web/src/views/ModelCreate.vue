@@ -8,7 +8,7 @@
           <div class="column is-half-mobile is-2-desktop">
             <card
               title="Entity Extraction"
-              subtitle="Identify key elements from text, and classify into pre-defined tags"
+              subtitle="Identify key entities from text"
               action="+ Create Model"
               @click="navigateTo('/dataload')"
             />

@@ -22,7 +22,6 @@ async def getDatasetItems(datasetId):
     # return db.table(TABLE_DATESET_ITEMS).all()
 
 async def insertDatasetItems(datasetID, row):
-
     row['dataset_id'] = datasetID
 
     table = db.table(TABLE_DATESET_ITEMS)

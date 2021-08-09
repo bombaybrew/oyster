@@ -22,4 +22,6 @@ async def getDatasetRows(id):
     return await repo.getDatasetItems(id)
 
 async def createDatasetRow(id, row):
+
+    row['id'] = str(uuid.uuid4())
     return await repo.insertDatasetItems(id, row)
