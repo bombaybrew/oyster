@@ -1,9 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
+from typing import List
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 import api.homeController as homeController
 import api.dataController as dataController
+import flairNLP.preprocessingController as preproController
 
 
 VERSION = 'v0.0.1'
@@ -89,6 +91,13 @@ async def createModel(model: Model):
     rawDatasetId = model.dict().get("rawDatasetId")
     return await dataController.createModel(name, type, rawDatasetId)
 
+@app.get("/preprocessing")
+async def preprocessing():
+    return await preproController.getPreprocessingEnums()
+
+@app.get("/preprocessing/apply/{datasetID}")
+async def applyPreprocessing(datasetID: str, preprocessing: List[str] = Query(None)):
+    return await preproController.applyPreprocessing(preprocessing, datasetID)   
 
 @app.get("/trainmodel")
 async def trainModel():
