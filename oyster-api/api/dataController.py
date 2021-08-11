@@ -23,7 +23,7 @@ async def getAllDataset():
 # ----------
 
 async def getDatasetRows(id):
-    return await repo.getDatasetItems(id)
+    return await repo.getAllDatasetItems(id)
 
 async def createDatasetRow(id, row):
 

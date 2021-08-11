@@ -20,7 +20,7 @@ async def getAll(tableName):
 async def getTable(tableName):
     return db.table(tableName)
 
-async def getDatasetItems(datasetId):
+async def getAllDatasetItems(datasetId):
     print(datasetId)
     table = db.table(TABLE_DATESET_ITEMS)
     return table.search(where('dataset_id') == datasetId)
