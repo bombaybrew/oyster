@@ -1,5 +1,5 @@
-from flairNLP.preprocessing import PreprocessingEnum
-import flairNLP.preprocessing as preprocessing
+from nlp.preprocessing import PreprocessingEnum
+import nlp.preprocessing as preprocessing
 import api.dataController as dataController
 
 async def getPreprocessingEnums():

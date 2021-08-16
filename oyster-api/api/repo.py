@@ -7,7 +7,7 @@ TABLE_DATASET = "dataset"
 TABLE_DATESET_ITEMS = "dataset_items"
 TABLE_MODEL = "model"
 # TABLE_MODEL_ITEMS :  model versions
-# TABLE_MODEL_ITEMS = "model_items"
+TABLE_MODEL_ITEMS = "model_items"
 
 async def insert(tableName, row):
     table = db.table(tableName)
@@ -49,14 +49,14 @@ async def resetDaset():
 # MODEL_ITEMS
 # # -----------
 
-# async def getModelItems(id):
+async def getModelItems(id):
 
-#     table = db.table(TABLE_MODEL_ITEMS)
-#     return table.search(where('id') == id)
+    table = db.table(TABLE_MODEL)
+    return table.search(where('id') == id)
 
-# async def insertModelItem(modelId, model_version, row):
-#     row["model_id"] = id
-#     row["model_version"] = model_version
-#     table = db.table(TABLE_MODEL_ITEMS)
-#     return table.insert(row)
+async def insertModelItem(modelId, model_version, row):
+    row["model_id"] = id
+    row["model_version"] = model_version
+    table = db.table(TABLE_MODEL_ITEMS)
+    return table.insert(row)
 
