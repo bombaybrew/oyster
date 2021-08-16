@@ -53,14 +53,11 @@ async def createModel(name, type, rawDatasetId):
         "rawDatasetId": rawDatasetId,
         "progress": 0
     }
-    dataset = {
-        "id": str(uuid.uuid4()),
-        "name": "Processed for " + name + " model",
-        "rawDatasetId": rawDatasetId,
-        "version" : 0
-    }
-    await repo.insert(repo.TABLE_DATASET, dataset)
-    model["processedDatasetId"] = dataset["id"]
+
+    # Create empty  dataset to save tags related to raw dataset. 
+    # Replace "processes" hardcoded values with user input.
+    entityTagSet = await insertEntityTagSet(name,rawDatasetId,processes=["STOPWORD", "PUNCTUATION", "LAMMATIZE", "JUNK"])
+    model["processedDatasetId"] = entityTagSet["id"]
     await repo.insert(repo.TABLE_MODEL, model)
     return model
 
@@ -75,3 +72,44 @@ async def getModel(modelId):
 
 async def createModelRow(modelId, modelVersion, row):
     return await repo.insertModelItems(modelId, modelVersion,row)
+
+# ENTITY_TAG_SET
+# --------------
+
+async def getAllEntityTagSets():
+    return await repo.getAllEntityTagSets()
+
+async def insertEntityTagSet(name: str, rawDatasetId: str, processes: list):
+    entityTagSet = {
+        "id": str(uuid.uuid4()),
+        "name": name,
+        "rawDatasetId": rawDatasetId,
+        "processes" : processes
+    }
+    await repo.insertEntityTagSet(entityTagSet)
+    return entityTagSet
+
+# ENTITY_TAG_SET_ITEM
+# ---------------
+
+async def getEntityTagSetItems(entityTagSetId) :
+    return await repo.getEntityTagItems(entityTagSetId)
+
+async def insertEntityTagSetItem(entityTagSetId: str, rawTextRowId: str, tags :  list):
+    entityTagSetItem = {
+        "id": str(uuid.uuid4()),
+        "entityTagSetId": entityTagSetId,
+        "rawTextRowId" : rawTextRowId,
+        "tags" : tags
+    }
+    await repo.insertEntityTagSetItem(entityTagSetItem)
+    return entityTagSetItem
+
+async def saveNERTags(modelId:str, rowId: str, tags: list):
+    model = await getModel(modelId=modelId)
+    processedDatasetId = model["processedDatasetId"]
+    entityTagSet = await repo.getEntityTagSet(processedDatasetId)
+    rawDatasetId = entityTagSet["rawDatasetId"]
+    return await insertEntityTagSetItem(entityTagSet["id"], 
+                            rawTextRowId=rowId,
+                            tags=tags)

@@ -9,6 +9,10 @@ TABLE_MODEL = "model"
 # TABLE_MODEL_ITEMS :  model versions
 TABLE_MODEL_ITEMS = "model_items"
 
+# Used for saving Named Entities of particular row in raw dataset
+TABLE_ENTITY_TAG_SET = "ner_tags_set"
+TABLE_ENTITY_TAG_SET_ITEMS = "ner_tags_items"
+
 async def insert(tableName, row):
     table = db.table(tableName)
     return table.insert(row)
@@ -52,7 +56,7 @@ async def resetDaset():
 async def getModelItems(id):
 
     table = db.table(TABLE_MODEL)
-    return table.search(where('id') == id)
+    return table.search(where('id') == id)[0]
 
 async def insertModelItem(modelId, model_version, row):
     row["model_id"] = id
@@ -60,3 +64,33 @@ async def insertModelItem(modelId, model_version, row):
     table = db.table(TABLE_MODEL_ITEMS)
     return table.insert(row)
 
+
+# ENTITY_TAG_SET
+# ---------------
+
+async def getAllEntityTagSets():
+    table = db.table(TABLE_ENTITY_TAG_SET)
+    return table.all()
+
+async def getEntityTagSet(id):
+    table = db.table(TABLE_ENTITY_TAG_SET)
+    print("getEntityTagSet id === ")
+    print(id)
+    return table.search(where("id") == id)[0]
+
+
+async def insertEntityTagSet(row):
+    table = db.table(TABLE_ENTITY_TAG_SET)
+    return table.insert(row)
+
+# ENTITY_TAG_SET_ITEMS
+# ---------------
+
+async def getEntityTagItems(entityTagSetId):
+    table = db.table(TABLE_ENTITY_TAG_SET_ITEMS)
+    return table.search(where('entityTagSetId') == entityTagSetId)
+
+
+async def insertEntityTagSetItem(row):
+    table = db.table(TABLE_ENTITY_TAG_SET_ITEMS)
+    return table.insert(row)

@@ -43,6 +43,16 @@ class Model(BaseModel):
     rawDatasetId: str
     processedDatasetId: str
 
+class EntityTagSet(BaseModel):
+    name: str
+    rawDataset: str
+    processes: list
+
+class EntityTagSetRow(BaseModel):
+    entityTagSetId: str
+    rawTextRowId: str
+    tags : list
+
 # Routes
 # --------------------
 
@@ -109,3 +119,15 @@ async def getModels():
 @app.get("/experiment/model/{modelID}")
 async def getModels(modelID:str):
     return await dataController.getModel(modelID)
+
+@app.post("/experiment/mode/{modelId}/tags/{rawTextRowId}")
+async def saveTags(modelId: str, rawTextRowId: str, tags: list):
+    return await dataController.saveNERTags(modelId,rowId=rawTextRowId, tags= tags)
+
+@app.get("/experiment/entitytagsets")
+async def getAllEntityTagSets():
+    return await dataController.getAllEntityTagSets()
+
+@app.get("/experiment/entitytagsets/{entityTagSetId}")
+async def getAllEntityTagSets(entityTagSetId: str):
+    return await dataController.getEntityTagSetItems(entityTagSetId)
