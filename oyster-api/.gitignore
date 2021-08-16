@@ -9,6 +9,6 @@ __pycache__/
 *.cfg
 data/*
 
-**/api/model
+**/api/models
 
 !.gitkeep

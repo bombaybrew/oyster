@@ -5,7 +5,8 @@ from pydantic import BaseModel
 
 import api.homeController as homeController
 import api.dataController as dataController
-import flairNLP.preprocessingController as preproController
+import nlp.preprocessingController as preproController
+import nlp.nlpController as nlpController
 
 
 VERSION = 'v0.0.1'
@@ -80,29 +81,31 @@ async def datasetRows(datasetID: str, index: int):
 async def datasetRow(datasetID: str, datasetRow: DatasetRow):
     return await dataController.createDatasetRow(datasetID, datasetRow.dict())
 
-@app.get("/model")
-async def getModels():
-    return await dataController.getAllModels()
-
-@app.post("/model") 
-async def createModel(model: Model):
-    name = model.dict().get("name")
-    type = model.dict().get("type")
-    rawDatasetId = model.dict().get("rawDatasetId")
-    return await dataController.createModel(name, type, rawDatasetId)
-
 @app.get("/preprocessing")
 async def preprocessing():
     return await preproController.getPreprocessingEnums()
 
 @app.get("/preprocessing/apply/{datasetID}")
 async def applyPreprocessing(datasetID: str, preprocessing: List[str] = Query(None)):
-    return await preproController.applyPreprocessing(preprocessing, datasetID)   
+    return await preproController.applyPreprocessing(preprocessing, datasetID)
 
-@app.get("/trainmodel")
-async def trainModel():
-    return await flairController.train()
 
-@app.get("/predict/")
-async def trainModel(text: str):
-    return await flairController.predict(text)
+@app.get("/test/model/{modelID}")
+async def testModel(modelID:str, text: str):
+    return await nlpController.testModel(modelID, text)
+
+@app.post("/experiment/model") 
+async def createModel(model: Model):
+    name = model.dict().get("name")
+    type = model.dict().get("type")
+    rawDatasetId = model.dict().get("rawDatasetId")
+    modelId = await dataController.createModel(name, type, rawDatasetId)
+    return modelId
+
+@app.get("/experiment/model")
+async def getModels():
+    return await dataController.getAllModels()
+
+@app.get("/experiment/model/{modelID}")
+async def getModels(modelID:str):
+    return await dataController.getModel(modelID)

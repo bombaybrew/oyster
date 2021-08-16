@@ -70,7 +70,7 @@ async def getAllModels():
 # Model versions
 # ----------
 
-async def getModelRows(modelId):
+async def getModel(modelId):
     return await repo.getModelItems(modelId)
 
 async def createModelRow(modelId, modelVersion, row):
