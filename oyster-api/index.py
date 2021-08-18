@@ -40,6 +40,7 @@ class DatasetRow(BaseModel):
 class Model(BaseModel):
     name: str
     type: str
+    support: str
     rawDatasetId: str
     processedDatasetId: str
 
@@ -108,8 +109,9 @@ async def testModel(modelID:str, text: str):
 async def createModel(model: Model):
     name = model.dict().get("name")
     type = model.dict().get("type")
+    support = model.dict().get("support")
     rawDatasetId = model.dict().get("rawDatasetId")
-    modelId = await dataController.createModel(name, type, rawDatasetId)
+    modelId = await dataController.createModel(name, type, support, rawDatasetId)
     return modelId
 
 @app.get("/experiment/model")
@@ -120,7 +122,7 @@ async def getModels():
 async def getModels(modelID:str):
     return await dataController.getModel(modelID)
 
-@app.post("/experiment/mode/{modelId}/tags/{rawTextRowId}")
+@app.post("/experiment/model/{modelId}/tags/{rawTextRowId}")
 async def saveTags(modelId: str, rawTextRowId: str, tags: list):
     return await dataController.saveNERTags(modelId,rowId=rawTextRowId, tags= tags)
 
