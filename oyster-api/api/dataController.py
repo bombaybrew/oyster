@@ -45,11 +45,12 @@ async def resetDataSets():
 # Model
 # ----------
 
-async def createModel(name, type, rawDatasetId):
+async def createModel(name, type, support, rawDatasetId):
     model = {
         "id": str(uuid.uuid4()),
         "name": name,
         "type":type,
+        "support": support,
         "rawDatasetId": rawDatasetId,
         "progress": 0
     }
