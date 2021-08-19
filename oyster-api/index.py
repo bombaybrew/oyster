@@ -105,6 +105,10 @@ async def applyPreprocessing(datasetID: str, preprocessing: List[str] = Query(No
 async def testModel(modelID:str, text: str):
     return await nlpController.testModel(modelID, text)
 
+@app.get("/train/model/{modelID}/tags/{tagID}")
+async def trainModel(modelID:str, tagID: str):
+    return await nlpController.trainModel(modelID, tagID)
+
 @app.post("/experiment/model") 
 async def createModel(model: Model):
     name = model.dict().get("name")
@@ -112,6 +116,7 @@ async def createModel(model: Model):
     support = model.dict().get("support")
     rawDatasetId = model.dict().get("rawDatasetId")
     modelId = await dataController.createModel(name, type, support, rawDatasetId)
+    await nlpController.createModel(modelId["id"])
     return modelId
 
 @app.get("/experiment/model")
