@@ -151,7 +151,7 @@ async def getModels(modelID:str):
 async def saveTags(modelId: str, rawTextRowId: str, tags: list):
     return await dataController.saveNERTags(modelId,rowId=rawTextRowId, tags= tags)
 
-@app.get("entitytagsets", tags=[constants.METADATA_TAG_ProcessedDataset])
+@app.get("/entitytagsets", tags=[constants.METADATA_TAG_ProcessedDataset])
 async def getAllEntityTagSets():
     return await dataController.getAllEntityTagSets()
 
