@@ -22,7 +22,7 @@ async def createModel(modelId):
     if modelType == ModelTpyeEnum.NER.name and modelSupport == ModelSupportEnum.SPACY.name:
         createSpacyNerModel(modelId)
     elif modelType == ModelTpyeEnum.NER.name and modelSupport == ModelSupportEnum.FLAIR.name:
-        return "Model type {modelType} or Model support {modelSupport} not  available"
+        createFlairNerModel(modelId)
     elif modelType == ModelTpyeEnum.CLASSIFIER.name and modelSupport == ModelSupportEnum.SPACY.name:
         return "Model type {modelType} or Model support {modelSupport} not  available"
     elif modelType == ModelTpyeEnum.CLASSIFIER.name and modelSupport == ModelSupportEnum.FLAIR.name:
@@ -37,6 +37,12 @@ def createSpacyNerModel(modelId):
     os.makedirs(path)
     spacyModel.createModel(path)
 
+
+def createFlairNerModel(modelId):
+    path = 'models/flairmodels/'+modelId+'/flairmodel'
+    os.chmod('models',0o777) 
+    os.makedirs(path)
+    flairModel.createModel(path)
 
 
 ## Test Models
@@ -66,12 +72,12 @@ def testSpacyNerModel(modelId, text):
 
 
 def testFlairNerModel(modelId, text):
-    path = 'models/flairmodels/'+modelId+'/model.pt'
+    path = 'models/flairmodels/'+modelId+'/flairmodel/model.pt'
     if os.path.isfile(path):
         predict = flairModel.predict(path, text)
         return predict
     else: 
-        return "Fail"
+        return "Fail:  Model not found"
 
 def testFlairClassifierModel(modelId, text):
     return "Flair Classifier Not Supported"
@@ -89,7 +95,7 @@ async def trainModel(modelId, tagId):
     if modelType == ModelTpyeEnum.NER.name and modelSupport == ModelSupportEnum.SPACY.name:
         return trainSpacyNerModel(modelId, trainData)
     elif modelType == ModelTpyeEnum.NER.name and modelSupport == ModelSupportEnum.FLAIR.name:
-        return "Model type {modelType} or Model support {modelSupport} not  available"
+        return trainFlairNerModel(modelId, trainData)
     elif modelType == ModelTpyeEnum.CLASSIFIER.name and modelSupport == ModelSupportEnum.SPACY.name:
         return "Model type {modelType} or Model support {modelSupport} not  available"
     elif modelType == ModelTpyeEnum.CLASSIFIER.name and modelSupport == ModelSupportEnum.FLAIR.name:
@@ -112,7 +118,15 @@ def prepareTrainData(trainData):
         dataSet.extend([(tags["text"], {"entities": [(tag["start"],tag["end"],tag["tag"]) for tag in tags["entities"]]}) for tags in item["tags"]])
     return dataSet
     
-
+def trainFlairNerModel(modelId, trainData):
+    path = 'models/flairmodels/'+modelId+'/flairmodel'
+    modelfile = 'model.pt'
+    data = prepareTrainData(trainData)
+    if os.path.isdir(path):
+        flairModel.trainModel(path, modelfile, data)
+        return "training Done"
+    else: 
+        return "Fail: model not found"
 
 
 # Labels  db
