@@ -4,7 +4,6 @@ from tinydb.utils import D
 
 db = TinyDB('data/tinydb.json')
 
-
 TABLE_DATASET = "dataset"
 TABLE_DATESET_ITEMS = "dataset_items"
 TABLE_MODEL = "model"
