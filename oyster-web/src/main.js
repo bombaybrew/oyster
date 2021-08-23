@@ -8,4 +8,3 @@ const app = createApp(App)
 app.use(router)
 app.provide('$http', new Repo()); 
 app.mount('#app')
-

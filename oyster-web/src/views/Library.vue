@@ -10,20 +10,22 @@
         />
       </div>
     </div>
-    <h4>Existing DataSets</h4>
     <hr />
+    <h4>Existing DataSets</h4>
+    <existing-dataset />
   </div>
 </template>
 
 <script>
 import Card from "@/views/components/Card.vue";
+import ExistingDataset from "@/views/components/ExistingDataset.vue";
 export default {
-  components: { Card },
+  components: { Card, ExistingDataset },
   name: "Library",
   methods: {
     navigateTo: function(path) {
       console.log(path);
-      this.$router.push('/create');
+      this.$router.push("/create");
     },
   },
 };

@@ -18,6 +18,6 @@ function Repo() {}
 
 // 
 // CMS
-Repo.prototype.getDataset = () => axios_client.get(URL_DATASET)
+Repo.prototype.getAllDatasets = () => axios_client.get(URL_DATASET)
 
 export default Repo;

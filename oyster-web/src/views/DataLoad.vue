@@ -40,7 +40,7 @@ export default {
   },
   inject: ["$http"],
   created: async function() {
-    let result = await this.$http.getDataset();
+    let result = await this.$http.getAllDatasets();
     this.datasets = result.data;
   },
   methods: {
