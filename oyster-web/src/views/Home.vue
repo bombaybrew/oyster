@@ -2,7 +2,7 @@
   <section class="section">
     <div class="content">
       <div class="container">
-        <div class="tabs is-medium">
+        <div class="tabs">
           <ul>
             <li v-bind:class="{ 'is-active': activeTab == 'home_tab' }">
               <a v-on:click="activeTab = 'home_tab'">Home</a>
