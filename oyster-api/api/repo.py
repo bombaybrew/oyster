@@ -1,7 +1,9 @@
 from os import remove
 from tinydb import TinyDB, Query, table, where
 from tinydb.utils import D
+
 db = TinyDB('data/tinydb.json')
+
 
 TABLE_DATASET = "dataset"
 TABLE_DATESET_ITEMS = "dataset_items"
