@@ -4,6 +4,7 @@ from typing import List
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from functools import wraps
+import math
 
 import api.homeController as homeController
 import api.dataController as dataController
@@ -52,15 +53,34 @@ def response_wrapper(func):
     @wraps(func)
     async def function_wrapper(*args, **kwargs):
         data = await func(*args, **kwargs)
+        page = kwargs.get('page', 0)
+        limit = kwargs.get('limit', 50)
+        start = page * limit
+
         result = {}
-        result["data"] = data
+        result["data"] = data[start: start + limit]
         result["error"] = {}
-        result["meta"] = {}
+        total_rows = len(data)
+        total_pages = math.ceil(total_rows/limit)
+        pre = page - 1
+        next = page + 1
+        if page == 0:
+            pre = -1
+        if page == total_pages - 1:
+            next = -1
+
+        result["meta"] = {
+            "count": len(data),
+            "pages": total_pages,
+            "pre_page": pre,
+            "next_page": next
+        }
         return result
     return function_wrapper
 
 # Model
 # --------------------
+
 
 class Dataset(BaseModel):
     name: str
@@ -126,16 +146,18 @@ async def deleteDatasets(datasetID: str):
         return await dataController.resetDataSets()
     return
 
+
 @app.get("/dataset/{datasetID}", tags=[constants.METADATA_TAG_Dataset])
 @response_wrapper
-async def datasetRows(datasetID: str, page: int = 0, limit: int = 10):
+async def datasetRows(datasetID: str, page: int = 0, limit: int = 50):
     result = await dataController.getDatasetRows(datasetID)
-    start = page * limit
-    return result[start: start + limit]
+    return result
+
 
 @app.get("/dataset/{datasetID}/{index}", tags=[constants.METADATA_TAG_Dataset])
 async def datasetRows(datasetID: str, index: int):
     return await dataController.getDatasetRowsBatch(datasetID, index)
+
 
 @app.post("/dataset/{datasetID}", tags=[constants.METADATA_TAG_Dataset])
 async def datasetRow(datasetID: str, datasetRow: DatasetRow):
