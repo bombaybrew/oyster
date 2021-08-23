@@ -17,7 +17,7 @@
 <script>
 export default {
   name: "Card",
-  props: ["title", "subtitle", "action"],
+  props: ["id", "title", "subtitle", "action"],
 };
 </script>
 

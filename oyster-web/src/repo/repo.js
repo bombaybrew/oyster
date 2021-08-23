@@ -6,12 +6,12 @@ const BASE_URL = "http://localhost:8000/"
 const URL_DATASET = BASE_URL + "dataset"
 
 const axios_client = axios.create({
-  baseURL: BASE_URL,
-  timeout: 10000, // indicates, 1000ms ie. 1 second
-  withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  }
+    baseURL: BASE_URL,
+    timeout: 10000, // indicates, 1000ms ie. 1 second
+    withCredentials: true,
+    headers: {
+        "Content-Type": "application/json",
+    }
 })
 
 function Repo() {}
@@ -19,5 +19,6 @@ function Repo() {}
 // 
 // CMS
 Repo.prototype.getAllDatasets = () => axios_client.get(URL_DATASET)
+Repo.prototype.getDatasetRows = (datasetID) => axios_client.get(URL_DATASET + "/" + datasetID)
 
 export default Repo;
