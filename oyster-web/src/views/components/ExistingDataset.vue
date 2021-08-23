@@ -6,14 +6,13 @@
         v-for="item of datasets"
         v-bind:key="item"
       >
-        <card v-bind:title="item.name" subtitle="" action="Use Dataset" />
-
-        <!-- <card
-          title="Create Model"
-          subtitle="Text classfication, entity extraction"
-          action="+ Create Model"
-          @click="selectDataset('/create')"
-        /> -->
+        <card
+          v-bind:title="item.name"
+          v-bind:id="item.id"
+          subtitle=""
+          action="Use Dataset"
+          @click="onDatasetSelect(item.id, item.name)"
+        />
       </div>
     </div>
   </div>
@@ -35,9 +34,15 @@ export default {
     this.datasets = result.data;
   },
   methods: {
-    selectDataset: function(path) {
-      console.log(path);
-      this.$router.push("/create");
+    onDatasetSelect: function(datasetID, datasetName) {
+      console.log(datasetID, datasetName);
+      this.$router.push({
+        name: "dataset",
+        params: {
+          "id": datasetID,
+          "datasetName": datasetName
+        },
+      });
     },
   },
 };
