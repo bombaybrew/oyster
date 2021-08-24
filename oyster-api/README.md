@@ -10,6 +10,9 @@
 > uvicorn index:app --reload
 
 > uvicorn index:app --port 8200 --workers 4 --reload
+
+> python -m uvicorn index:app --reload
+
 ```
 
 ## Demo
