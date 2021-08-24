@@ -7,7 +7,8 @@ from functools import wraps
 import math
 
 import api.homeController as homeController
-import api.dataController as dataController
+import api.modelDataController as dataController
+import api.dataSetController as dataSetController
 import nlp.preprocessingController as preproController
 import nlp.nlpController as nlpController
 import constants.constants as constants
@@ -36,14 +37,14 @@ app.add_middleware(
 
 
 def setOpenApi_shema():
-    openapi_shema = get_openapi(
+    openapi_schema = get_openapi(
         title="Oyster API",
         version="v0.0.1",
         description="This is a very Oyster OpenAPI schema",
         routes=app.routes,
     )
-    openapi_shema['tags'] = constants.api_tags_metadata
-    app.openapi_schema = openapi_shema
+    openapi_schema['tags'] = constants.api_tags_metadata
+    app.openapi_schema = openapi_schema
 
 
 # Decorators
@@ -132,36 +133,36 @@ async def home():
 @app.get("/dataset",
          tags=[constants.METADATA_TAG_Dataset])
 async def dataset():
-    return await dataController.getAllDataset()
+    return await dataSetController.getAllDataset()
 
 
 @app.post("/dataset", tags=[constants.METADATA_TAG_Dataset])
 async def dataset(dataset: Dataset):
-    return await dataController.createDataset(dataset.dict().get("name"))
+    return await dataSetController.createDataset(dataset.dict().get("name"))
 
 
 @app.delete("/dataset/{datasetID}", tags=[constants.METADATA_TAG_Dataset])
 async def deleteDatasets(datasetID: str):
     if(datasetID == "all"):
-        return await dataController.resetDataSets()
+        return await dataSetController.resetDataSets()
     return
 
 
 @app.get("/dataset/{datasetID}", tags=[constants.METADATA_TAG_Dataset])
 @response_wrapper
 async def datasetRows(datasetID: str, page: int = 0, limit: int = 50):
-    result = await dataController.getDatasetRows(datasetID)
+    result = await dataSetController.getDatasetRows(datasetID)
     return result
 
 
 @app.get("/dataset/{datasetID}/{index}", tags=[constants.METADATA_TAG_Dataset])
 async def datasetRows(datasetID: str, index: int):
-    return await dataController.getDatasetRowsBatch(datasetID, index)
+    return await dataSetController.getDatasetRowsBatch(datasetID, index)
 
 
 @app.post("/dataset/{datasetID}", tags=[constants.METADATA_TAG_Dataset])
 async def datasetRow(datasetID: str, datasetRow: DatasetRow):
-    return await dataController.createDatasetRow(datasetID, datasetRow.dict())
+    return await dataSetController.createDatasetRow(datasetID, datasetRow.dict())
 
 
 @app.get("/preprocessing", tags=[constants.METADATA_TAG_DataProcessing])
@@ -184,7 +185,7 @@ async def trainModel(modelID: str, tagID: str):
     return await nlpController.trainModel(modelID, tagID)
 
 
-@app.post("/experiment/model", tags=[constants.METADATA_TAG_Experiment])
+@app.post("/model", tags=[constants.METADATA_TAG_Experiment])
 async def createModel(model: Model):
     name = model.dict().get("name")
     type = model.dict().get("type")
@@ -195,28 +196,28 @@ async def createModel(model: Model):
     return modelId
 
 
-@app.get("/experiment/model", tags=[constants.METADATA_TAG_Experiment])
+@app.get("/model", tags=[constants.METADATA_TAG_Experiment])
 async def getModels():
     return await dataController.getAllModels()
 
 
-@app.get("/experiment/model/{modelID}", tags=[constants.METADATA_TAG_Experiment])
+@app.get("/model/{modelID}", tags=[constants.METADATA_TAG_Experiment])
 async def getModels(modelID: str):
     return await dataController.getModel(modelID)
 
 
-@app.post("/experiment/model/{modelId}/tags/{rawTextRowId}", tags=[constants.METADATA_TAG_Experiment])
+@app.post("/model/{modelId}/tags/{rawTextRowId}", tags=[constants.METADATA_TAG_Experiment])
 async def saveTags(modelId: str, rawTextRowId: str, tags: list):
-    return await dataController.saveNERTags(modelId, rowId=rawTextRowId, tags=tags)
+    return await dataSetController.saveNERTags(modelId, rowId=rawTextRowId, tags=tags)
 
 
 @app.get("/entitytagsets", tags=[constants.METADATA_TAG_ProcessedDataset])
 async def getAllEntityTagSets():
-    return await dataController.getAllEntityTagSets()
+    return await dataSetController.getAllEntityTagSets()
 
 
 @app.get("/entitytagsets/{entityTagSetId}", tags=[constants.METADATA_TAG_ProcessedDataset])
 async def getAllEntityTagSets(entityTagSetId: str):
-    return await dataController.getEntityTagSetItems(entityTagSetId)
+    return await dataSetController.getEntityTagSetItems(entityTagSetId)
 
 setOpenApi_shema()
