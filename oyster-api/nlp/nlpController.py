@@ -1,6 +1,7 @@
 # import nlp.prepareDataset as prepareDataset
 from nlp.flairModel import FlairNERModel, FlairClassifierModel
-import api.dataController as dataController
+import api.modelDataController as dataController
+import api.dataSetController as dataSetController
 import os.path
 import os
 from nlp.spacyModel import SpacyNERModel, SpacyClassifierModel
@@ -117,7 +118,7 @@ def testFlairClassifierModel(modelId, text):
 ## Train models
 async def trainModel(modelId, tagId):
     ## Get More info about model
-    trainData = await dataController.getEntityTagSetItems(tagId)
+    trainData = await dataSetController.getEntityTagSetItems(tagId)
     model = await dataController.getModel(modelId)
     modelType = model["type"].upper()
     modelSupport = model["support"].upper()
