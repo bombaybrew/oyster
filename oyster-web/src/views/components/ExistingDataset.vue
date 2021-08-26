@@ -32,6 +32,7 @@ export default {
   created: async function() {
     let result = await this.$http.getAllDatasets();
     this.datasets = result.data;
+    console.log(this.datasets)
   },
   methods: {
     onDatasetSelect: function(datasetID, datasetName) {

@@ -23,12 +23,14 @@
 
     <div id="menu" class="navbar-menu" v-bind:class="{ 'is-active': showNav }">
       <div class="navbar-start">
-        <a v-on:click="showNav = !showNav" class="navbar-item">
+        <a class="navbar-item">
+          <router-link to="/demo">Demo</router-link>
+        </a>
+        <a class="navbar-item">
           <router-link to="/docs">Docs</router-link>
         </a>
-
-        <a @click="navigateTo('/about')" class="navbar-item">
-          About
+        <a class="navbar-item">
+          <router-link to="/about">About</router-link>
         </a>
       </div>
 

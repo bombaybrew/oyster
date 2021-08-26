@@ -8,6 +8,7 @@ import Docs from "@/views/Docs.vue";
 import ModelCreate from "@/views/ModelCreate.vue"
 import DataLoad from "@/views/DataLoad.vue"
 import EditDataset from "@/views/EditDataset.vue"
+import Demo from "@/views/Demo.vue"
 
 const routes = [{
         path: '/',
@@ -26,6 +27,10 @@ const routes = [{
     {
         path: '/dataload',
         component: DataLoad
+    },
+    {
+        path: '/demo',
+        component: Demo
     },
     {
         path: '/docs',
