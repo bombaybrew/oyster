@@ -90,8 +90,7 @@ export default {
           this.selectedModel.id,
           this.testText
         );
-        console.log(result.data);
-        this.modelTestResult = result.data;
+        this.modelTestResult = result.data.data;
       } catch (e) {
         console.log(e);
       }
