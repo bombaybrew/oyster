@@ -1,10 +1,7 @@
 <template>
   <nav class="navbar is-light" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-      <a class="navbar-item">
-        <router-link to="/">Oyster</router-link>
-      </a>
-
+      <router-link class="navbar-item" to="/">Oyster</router-link>
       <a
         id="burger"
         role="button"
@@ -23,15 +20,9 @@
 
     <div id="menu" class="navbar-menu" v-bind:class="{ 'is-active': showNav }">
       <div class="navbar-start">
-        <a class="navbar-item">
-          <router-link to="/demo">Demo</router-link>
-        </a>
-        <a class="navbar-item">
-          <router-link to="/docs">Docs</router-link>
-        </a>
-        <a class="navbar-item">
-          <router-link to="/about">About</router-link>
-        </a>
+        <router-link class="navbar-item" to="/demo">Demo</router-link>
+        <router-link class="navbar-item" to="/docs">Docs</router-link>
+        <router-link class="navbar-item" to="/about">About</router-link>
       </div>
 
       <div class="navbar-end">
