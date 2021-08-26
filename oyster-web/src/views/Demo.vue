@@ -5,36 +5,51 @@
         <h1>Demo</h1>
         <hr />
 
-        <div class="field">
-          <label class="label">Model</label>
-          <div class="control">
-            <model-dropdown
-              v-bind:title="dropdownTitle"
-              v-bind:models="models"
-              v-on:onSelect="onModelSelect"
-            ></model-dropdown>
+        <form id="demoForm" @submit.prevent="processForm">
+          <div class="field">
+            <label class="label">Model</label>
+            <div class="control">
+              <model-dropdown
+                v-bind:title="dropdownTitle"
+                v-bind:models="models"
+                v-on:onSelect="onModelSelect"
+              ></model-dropdown>
+            </div>
           </div>
-        </div>
 
-        <div class="field">
-          <label class="label">Test Data</label>
-          <div class="control">
-            <textarea class="textarea" placeholder="Test Data"></textarea>
+          <div class="field">
+            <label class="label">Test Data</label>
+            <div class="control">
+              <textarea
+                class="textarea"
+                placeholder="Test Data"
+                v-model="testText"
+              ></textarea>
+            </div>
           </div>
-        </div>
 
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link">Test</button>
+          <div class="field is-grouped">
+            <div class="control">
+              <button type="submit" class="button is-link">Test</button>
+            </div>
+            <div class="control">
+              <button class="button is-link is-light">Reset</button>
+            </div>
           </div>
-          <div class="control">
-            <button class="button is-link is-light">Reset</button>
+
+          <div class="field">
+            <div class="control">
+              <textarea
+                class="textarea"
+                placeholder=""
+                v-model="modelTestResult"
+                readonly
+              ></textarea>
+            </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
-
-    <section></section>
   </section>
 </template>
 
@@ -45,7 +60,10 @@ export default {
   name: "Demo",
   data: () => ({
     dropdownTitle: "Select Model",
+    selectedModel: {},
     models: [],
+    testText: "",
+    modelTestResult: "",
   }),
   mounted() {
     this.initDemo();
@@ -64,6 +82,19 @@ export default {
     onModelSelect: async function(selected) {
       await this.$nextTick();
       this.dropdownTitle = selected.name;
+      this.selectedModel = selected;
+    },
+    processForm: async function() {
+      try {
+        let result = await this.$http.testModel(
+          this.selectedModel.id,
+          this.testText
+        );
+        console.log(result.data);
+        this.modelTestResult = result.data;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
 };

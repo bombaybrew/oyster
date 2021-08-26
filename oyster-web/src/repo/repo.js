@@ -5,6 +5,7 @@ const BASE_URL = "http://localhost:8000/"
 // const BASE_URL = process.env.BASE_URL
 const URL_DATASET = BASE_URL + "dataset"
 const URL_DEMO_MODELS = BASE_URL + "experiment/model"
+const URL_DEMO_TEST = BASE_URL + "test/model"
 
 const axios_client = axios.create({
     baseURL: BASE_URL,
@@ -22,5 +23,6 @@ function Repo() {}
 Repo.prototype.getAllDatasets = () => axios_client.get(URL_DATASET)
 Repo.prototype.getDatasetRows = (datasetID) => axios_client.get(URL_DATASET + "/" + datasetID)
 Repo.prototype.getDemoModels = () => axios_client.get(URL_DEMO_MODELS)
+Repo.prototype.testModel = (modelID, text) => axios_client.get(URL_DEMO_TEST + "/" + modelID + "?text=" + text)
 
 export default Repo;
