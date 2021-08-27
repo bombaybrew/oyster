@@ -194,7 +194,8 @@ async def createModel(model: Model):
     type = model.dict().get("type")
     support = model.dict().get("support")
     rawDatasetId = model.dict().get("rawDatasetId")
-    modelId = await dataController.createModel(name, type, support, rawDatasetId)
+    nerTags = model.dict().get("ner_tags")
+    modelId = await dataController.createModel(name, type, support, rawDatasetId, nerTags)
     await nlpController.createModel(modelId["id"])
     return modelId
 

@@ -4,6 +4,7 @@ import api.repo as repo
 from api.repo import TableName
 import uuid
 import  pandas as pd
+import api.dataSetController as dataSetController 
 
 # Clears all table 
 async def resetDataBase():
@@ -14,19 +15,20 @@ async def resetDataBase():
 # Model
 # ----------
 
-async def createModel(name, type, support, rawDatasetId):
+async def createModel(name, type, support, rawDatasetId, nerTags):
     model = {
         "id": str(uuid.uuid4()),
         "name": name,
         "type":type,
         "support": support,
         "rawDatasetId": rawDatasetId,
-        "progress": 0
+        "progress": 0,
+        "ner_tags" : nerTags
     }
 
     # Create empty  dataset to save tags related to raw dataset. 
     # Replace "processes" hardcoded values with user input.
-    entityTagSet = await insertEntityTagSet(name,rawDatasetId,processes=["STOPWORD", "PUNCTUATION", "LAMMATIZE", "JUNK"])
+    entityTagSet = await dataSetController.insertEntityTagSet(name,rawDatasetId,processes=["STOPWORD", "PUNCTUATION", "LAMMATIZE", "JUNK"])
     model["processedDatasetId"] = entityTagSet["id"]
     await repo.insert(TableName.MODEL, model)
     return model
@@ -45,5 +47,5 @@ async def createModelRow(modelId, modelVersion, row):
     row["model_id"] = id
     row["model_version"] = modelVersion
     return await repo.insert(TableName.MODEL_ITEMS, row)
-    return await repo.insertModelItems(modelId, modelVersion,row)
+    # return await repo.insertModelItems(modelId, modelVersion,row)
 
