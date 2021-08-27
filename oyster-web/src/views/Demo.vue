@@ -74,7 +74,7 @@ export default {
       try {
         let result = await this.$http.getDemoModels();
         this.models = result.data.data;
-        console.log(this.models);
+        console.log("list of models", this.models);
       } catch (e) {
         console.log(e);
       }

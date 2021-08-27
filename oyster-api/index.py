@@ -23,6 +23,7 @@ app = FastAPI()
 origins = [
     "http://localhost",
     "http://localhost:8082",
+    "http://localhost:8080",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -176,7 +177,8 @@ async def applyPreprocessing(datasetID: str, preprocessing: List[str] = Query(No
 
 
 @app.get("/test/model/{modelID}", tags=[constants.METADATA_TAG_MLModel])
-async def testModel(modelID: str, text: str):
+@response_wrapper
+async def testModel(modelID: str, text: str, page: int = 0, limit: int = 1000):
     return await nlpController.testModel(modelID, text)
 
 
@@ -186,6 +188,7 @@ async def trainModel(modelID: str, tagID: str):
 
 
 @app.post("/model", tags=[constants.METADATA_TAG_Experiment])
+@response_wrapper
 async def createModel(model: Model):
     name = model.dict().get("name")
     type = model.dict().get("type")
@@ -195,11 +198,10 @@ async def createModel(model: Model):
     await nlpController.createModel(modelId["id"])
     return modelId
 
-
 @app.get("/model", tags=[constants.METADATA_TAG_Experiment])
+@response_wrapper
 async def getModels():
     return await dataController.getAllModels()
-
 
 @app.get("/model/{modelID}", tags=[constants.METADATA_TAG_Experiment])
 async def getModels(modelID: str):

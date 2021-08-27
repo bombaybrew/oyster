@@ -65,6 +65,7 @@ def createFlairClassifierModel(modelId):
 
 ## Test Models
 async def testModel(modelId, text):
+
      ## Get More info about model
     model = await dataController.getModel(modelId)
     modelType = model["type"].upper()
@@ -91,7 +92,7 @@ def testSpacyNerModel(modelId, text):
 
 def testFlairNerModel(modelId, text):
     path = 'models/flairmodels/'+modelId+'/flairmodel'
-    modelfile = 'classifier_model.pt'
+    modelfile = 'model.pt'
     if os.path.isfile(path+'/'+modelfile):
         predict = FlairNERModel(id=modelId, path=path, fileName=modelfile).predict(text)
         return predict

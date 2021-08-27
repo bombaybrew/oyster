@@ -4,7 +4,7 @@ import axios from 'axios'
 const BASE_URL = "http://localhost:8000/"
 // const BASE_URL = process.env.BASE_URL
 const URL_DATASET = BASE_URL + "dataset"
-const URL_DEMO_MODELS = BASE_URL + "experiment/model"
+const URL_DEMO_MODELS = BASE_URL + "model"
 const URL_DEMO_TEST = BASE_URL + "test/model"
 
 const axios_client = axios.create({
