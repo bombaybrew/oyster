@@ -6,6 +6,7 @@ import os.path
 import os
 from nlp.spacyModel import SpacyNERModel, SpacyClassifierModel
 import enum
+from collections import Counter
 
 class ModelSupportEnum(enum.Enum):
     SPACY = 1
@@ -103,7 +104,8 @@ def testSpacyClassifierModel(modelId, text):
     path = 'models/spacymodels/'+modelId+'/classifiermodel'
     if os.path.isdir(path):
         predict = SpacyClassifierModel(id=modelId, path=path).predict(text)
-        return predict
+        response = Counter(predict).most_common(3)
+        return response
     else: 
         return "Fail:  Model not found"
 
@@ -112,14 +114,15 @@ def testFlairClassifierModel(modelId, text):
     modelfile = 'classifier_model.pt'
     if os.path.isfile(path+'/'+modelfile):
         predict = FlairClassifierModel(id=modelId, path=path, fileName=modelfile).predict(text)
-        return predict
+        response = Counter(predict).most_common(3)
+        return response
     else: 
         return "Fail:  Model not found"
 
 ## Train models
 async def trainModel(modelId, tagId):
     ## Get More info about model
-    trainData = await dataSetController.getEntityTagSetItems(tagId)
+    trainData = await dataSetController.getEntityTagSetItemsValue(tagId)
     model = await dataController.getModel(modelId)
     modelType = model["type"].upper()
     modelSupport = model["support"].upper()
@@ -144,9 +147,25 @@ def trainSpacyNerModel(modelId, trainData):
         return "Fail"
 
 def prepareTrainData(trainData):
+    """
+    trainData: {"tags": [
+        {
+            "text": "sentences",
+            "entities": [{
+                "start": 0,
+                "end": 1,
+                "tag": "value"
+            }]
+        }
+    ]}
+    """
     dataSet = []
-    for item in trainData:
-        dataSet.extend([(tags["text"], {"entities": [(tag["start"],tag["end"],tag["tag"]) for tag in tags["entities"]]}) for tags in item["tags"]])
+    if (isinstance(trainData, list)):
+        for item in trainData:
+            dataSet.extend([(tags["text"], {"entities": [(tag["start"],tag["end"],tag["tag"]) for tag in tags["entities"]]}) for tags in item["tags"]])
+    else:
+        dataSet.extend([(tags["text"], {"entities": [(tag["start"],tag["end"],tag["tag"]) for tag in tags["entities"]]}) for tags in trainData["tags"]])
+
     return dataSet
     
 def trainFlairNerModel(modelId, trainData):
@@ -182,8 +201,11 @@ def trainFlairClassifierModel(modelId, trainData):
 
 def prepareTrainDataClassifier(trainData):
     dataSet = []
-    for item in trainData:
-        dataSet.extend([label for label in item["tags"]])
+    if (isinstance(trainData, list)):
+        for item in trainData:
+            dataSet.extend([label for label in item["tags"]])
+    else:
+        dataSet.extend([label for label in trainData["tags"]])
     return dataSet
 
 

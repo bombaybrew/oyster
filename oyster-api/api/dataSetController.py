@@ -17,6 +17,9 @@ async def createDataset(name):
 async def getAllDataset():
     return await repo.getAll(TableName.DATASET)
 
+async def resetDataSets():
+    return await repo.resetDatabase()
+
 
 # Dataset Rows
 # ----------
@@ -57,6 +60,10 @@ async def insertEntityTagSet(name: str, rawDatasetId: str, processes: list):
 
 async def getEntityTagSetItems(entityTagSetId) :
     results = await repo.getFilteredDocuments(TableName.ENTITY_TAG_SET, 'id', entityTagSetId)
+    return results[0]
+
+async def getEntityTagSetItemsValue(entityTagSetId) :
+    results = await repo.getFilteredDocuments(TableName.ENTITY_TAG_SET_ITEMS, 'id', entityTagSetId)
     return results[0]
 
 async def insertEntityTagSetItem(entityTagSetId: str, rawTextRowId: str, tags :  list):

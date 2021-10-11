@@ -1,0 +1,64 @@
+[
+    {
+        "text": "Lenovo IdeaPad 100 - 15IBD 80QQ002DUS 15.6 16:9 Notebook - Intel Core i3 (5thGen) i3-5020U Dual-core (2 Core) 2.20 GHz -",
+        "entities":[{"end": 18, "start": 0, "tag": "PROD"},{ "end": 72, "start": 59, "tag": "PROCESSOR"},{ "end": 100, "start": 82, "tag": "PROCESSOR"}]
+    },
+    {
+        "text": "HP ZBook 17 G3 Mobile Workstation - 17.3 - Core i7 6820HQ - 16 GB RAM - 1 TB HDD",
+        "entities":[{"end": 2, "start": 0, "tag": "PROD"},{"end": 50, "start": 43, "tag": "PROCESSOR"}, {"end": 69, "start": 60, "tag": "SPECS"}, {"end": 80, "start": 72, "tag": "SPECS"}]
+    },
+    {
+        "text": "Refurbished Dell XPS 15 9550 i5 - 6300HQ 8GB 1TB FHD FHD INFINITY edge Nvidia GTX960M Windows 10 Home Laptop silver",
+        "entities":[{"end": 16, "start": 12, "tag": "PROD"}, {"end": 31, "start": 29, "tag": "PROCESSOR"}, {"end": 48, "start": 41, "tag": "SPECS"}, {"end": 101, "start": 86, "tag": "OS"}]
+    },
+    {
+        "text": "Refurbished HP Stream 14 Laptop , Windows 10 Home , Intel Celeron N3060 Processor , 4GB RAM , 32GB eMMC Storage",
+        "entities":[{"end": 14, "start": 12, "tag": "PROD"}, {"end": 49, "start": 34, "tag": "OS"}, {"end": 81, "start": 52, "tag": "PROCESSOR"}, {"end": 91, "start": 84, "tag": "SPECS"}, {"end": 111, "start": 94, "tag": "SPECS"}]
+    },
+    {
+        "text": "Dell Inspiron 15 5000 i5567 15.6 Laptop , Touchscreen , Windows 10 Home , Intel Core i7 - 7500U Processor , 16GB RAM , 1TB Hard Drive",
+        "entities":[{"end": 13, "start": 0, "tag": "PROD"},{"end": 71, "start": 56, "tag": "OS"}, {"end": 87, "start": 74, "tag": "PROCESSOR"},{"end": 116, "start": 108, "tag": "SPECS"}, {"end": 133, "start": 119, "tag": "SPECS"}]
+    },
+    {
+        "text": "Refurbished Apple MacBook Pro 15.4 Retina i7-3635QM 2.4GHz 16GB 256GB SSD Laptop ME664LL / A",
+        "entities":[{"end": 29, "start": 12, "tag": "PROD"},{"end": 73, "start": 59, "tag": "SPECS"}]
+    },
+    {
+        "text": "ASUS Metallic 15.6 GL552VW - DH74 Laptop PC with Intel Core i7 - 6700HQProcessor , 16GB Memory , 1TB Hard Drive and Windows 10",
+        "entities":[{"end": 4, "start": 0, "tag": "PROD"}, {"end": 62, "start": 49, "tag": "PROCESSOR"}, {"end": 94, "start": 83, "tag": "SPECS"}, {"end": 111, "start": 97, "tag": "SPECS"},{"end": 126, "start": 116, "tag": "OS"}]
+    },
+    {
+        "text": "Refurbished Dell XPS 13 9350 i5 - 6200U 8GB 256GB PCIe SSD FHD 1080p INFINITY Windows 10 laptop silver",
+        "entities":[{"end": 16, "start": 12, "tag": "PROD"}, {"end": 49, "start": 40, "tag": "SPECS"}, {"end": 88, "start": 78, "tag": "OS"}]
+    },
+    {
+        "text": "Acer Midnight Black Aspire E - 15 15.6 E5 - 521 - 24PQ Laptop PC with AMD E2 - 6110 Quad-Core Processor , 4GB Memory , 1TB Hard Drive and Windows 8.1 with Wireless Mouse , Case , and McAfee Security Protectio",
+        "entities":[{"end": 4, "start": 0, "tag": "PROD"},{"end": 103, "start": 84, "tag": "PROCESSOR"}, {"end": 116, "start": 106, "tag": "SPECS"}, {"end": 133, "start": 119, "tag": "SPECS"}, {"end": 149, "start": 138, "tag": "OS"}]
+    },
+    {
+        "text": "Dell Latitude E6420 Laptop - HDMI - Intel i5 2.5ghz - 6GB DDR3 - 320GB - DVDRW - Windows 10 64bit - Refurbished",
+        "entities":[{"end": 4, "start": 0, "tag": "PROD"}, {"end": 44, "start": 36, "tag": "PROCESSOR"}, {"end": 62, "start": 54, "tag": "SPECS"}, {"end": 70, "start": 65, "tag": "SPECS"}, {"end": 97, "start": 81, "tag": "OS"}]
+    },
+    {
+        "text": "Dell Inspiron 15 - 5577 Notebook with Intel i7 - 7700HQ , 16GB 512GB SSD",
+        "entities":[{"end": 4, "start": 0, "tag": "PROD"}, {"end": 46, "start": 38, "tag": "PROCESSOR"}, {"end": 72, "start": 58, "tag": "SPECS"}]
+    },
+    {
+        "text": "Certified Refurbished - Apple MacBook Pro MC700LL / A 13 - Inch Laptop - 2.3Ghz Core i5 / 4GB RAM / 320GB",
+        "entities":[{"end": 41, "start": 24, "tag": "PROD"}, {"end": 87, "start": 80, "tag": "PROCESSOR"}, {"end": 97, "start": 90, "tag": "SPECS"}, {"end": 105, "start": 100, "tag": "SPECS"}]
+    },
+    {
+        "text": "iView 13.3 1330NB Laptop PC with Intel Atom Cherry Trail Z8300 Processor , 2GB Memory , 32GB Flash Drive and Windows 10",
+        "entities":[{"end": 5, "start": 0, "tag": "PROD"}, {"end": 72, "start": 57, "tag": "PROCESSOR"}, {"end": 85, "start": 75, "tag": "SPECS"}, {"end": 104, "start": 88, "tag": "SPECS"}, {"end": 119, "start": 109, "tag": "OS"}]
+    },
+    {
+        "text": "Asus Chromebook C201PA - DS01 11.6 Chromebook - Rockchip Cortex A17 RK3288 Quad - core (4 Core) 1.80 GHz - Navy Blue - 2 GB LPDDR3 RAM - ARM Mali - T764 - Chrome OS - 1366 x 768 16:9 Display ‚Äì Bluetooth",
+        "entities":[{"end": 4, "start": 0, "tag": "PROD"},{"end": 67, "start": 48, "tag": "PROCESSOR"},{"end": 134, "start": 119, "tag": "SPECS"}, {"end": 164, "start": 155, "tag": "OS"}]
+    }
+]
+
+
+
+
+
+

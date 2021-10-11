@@ -110,6 +110,9 @@ class SpacyClassifierModel(NlpModel):
         """
         Train Classifier model
         trainData (list): List of train data in below foramt
+        expecting train data in this format: 
+        [{"label": "CRIME", "text": "Any Text"}]
+        further convert it in below foramt
         [('Review or Text or sentence',{'cats': {'Category1': 0, 'Category2': 1}})]
      
         after train it will save mode at 
